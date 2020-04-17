@@ -1,10 +1,14 @@
 import sys
 from os import environ
 from random import randint
+import time
+import traceback
+import threading
 
 import pyqtgraph as pg
 from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtCore import QRunnable
+from PyQt5.QtCore import QThreadPool
+from PyQt5.QtCore import *
 
 from dcps import AimTTiPLP
 
@@ -16,6 +20,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, obj=None, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
+
+        # Set up multi-threading
+        self.threadpool = QThreadPool()
+        print("Multithreading with maximum %d threads started" % self.threadpool.maxThreadCount())
+
+
         # Plot update timer
         self.timer = QtCore.QTimer()
         self.timer.setInterval(50)
@@ -59,7 +69,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # State Vars
         self.outputvar = False
         self.automaticstatevar = False
-        self.rampdirection = 0
+        self.autostatvar = False
 
         self.checkBox_output.stateChanged.connect(lambda: self.chkstate(self.checkBox_output))
         self.pushButton_setval.clicked.connect(lambda: self.clickevents(self.pushButton_setval))
@@ -71,8 +81,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_subincr.clicked.connect(lambda: self.clickevents(self.pushButton_subincr))
 
         # Auto Ramp
-        self.ramptimer = QtCore.QTimer()
-        self.ramptimer.timeout.connect(self.rampcurrent)
+        # self.ramptimer = QtCore.QTimer()
+        # self.ramptimer.timeout.connect(self.rampcurrent)
         self.pushButton_startramp.clicked.connect(lambda: self.clickevents(self.pushButton_startramp))
 
     def clickevents(self, b):
@@ -108,15 +118,22 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if b.objectName() == 'checkBox_automaticcontrol':
             if b.isChecked() == True:
                 print('Automatic control activated!')
-                self.ramptimer.setInterval(self.spinBox_dwell.value())
             if b.isChecked() == False:
-                # self.ramptimer.stop()
-                self.automaticstatevar = False
+                self.autostatvar = False
                 print('Automatic control deactivated!')
                 print('Timer stopped!')
         if b.objectName() == 'pushButton_startramp':
             print('Starting the ramp!')
-            self.ramptimer.start()
+            # worker = Worker(self.rampcurrent(delta=self.doubleSpinBox_autoincr.value(),
+            #                                  target=self.doubleSpinBox_target.value(),
+            #                                  waittime=self.spinBox_dwell.value()/1000, statvar=self.autostatvar))
+            # worker.signals.finished.connect(self.thread_complete)
+            self.timer.stop()
+            t = threading.Thread(target=self.rampcurrent, args=(self.doubleSpinBox_autoincr.value(),
+                                             self.doubleSpinBox_target.value(),
+                                             self.spinBox_dwell.value()/1000, self.autostatvar))
+            t.start()
+            # self.threadpool.start(worker)
 
     def chkstate(self, b):
         if b.objectName() == 'checkBox_output':
@@ -140,35 +157,45 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.connected = False
             self.checkBox_output.setEnabled(False)
 
-    def rampcurrent(self):
+    def rampcurrent(self, delta, target, waittime, statvar):
         current = self.supply.measureCurrent(channel=2)
-        if self.automaticstatevar is False and self.rampdirection == 0:
-            self.automaticstatevar = True
-            self.supply.setCurrentDelta(self.doubleSpinBox_autoincr.value(), channel=2)
-            self.rampdirection = current - self.doubleSpinBox_target.value()
-            if self.rampdirection > 0:
+        if statvar is False:
+            print('Deciding direction of ramp...')
+            statvar = True
+            self.supply.setCurrentDelta(delta, channel=2)
+            rampdirection = current - target
+            if rampdirection > 0:
                 print('Ramping down!')
-            elif self.rampdirection < 0:
+            elif rampdirection < 0:
                 print('Ramping up!')
             else:
                 print('Ramp direction is zero!')
 
-        if self.rampdirection < 0:
-            if current < self.doubleSpinBox_target.value():
+        if rampdirection < 0:
+            while current < target:
                 self.supply.incCurrentByDelta(channel=2)
-            elif current >= 0.99 * self.doubleSpinBox_target.value():
-                print('Reached target current value! Stopping ramp!')
-                self.ramptimer.stop()
-                self.automaticstatevar = False
-                self.rampdirection = 0
-        if self.rampdirection > 0:
-            if current > self.doubleSpinBox_target.value():
+                time.sleep(waittime)
+                if current >= 0.99 * target:
+                    print('Reached target current value! Stopping ramp!')
+                    break
+                current = self.supply.measureCurrent(channel=2)
+                print(current)
+        if rampdirection > 0:
+            while current > target:
                 self.supply.decCurrentByDelta(channel=2)
-            elif current <= 0.99 * self.doubleSpinBox_target.value():
-                print('Reached target current value! Stopping ramp!')
-                self.ramptimer.stop()
-                self.automaticstatevar = False
-                self.rampdirection = 0
+                time.sleep(waittime)
+                if current <= 0.99 * target:
+                    print('Reached target current value! Stopping ramp!')
+                    break
+                current = self.supply.measureCurrent(channel=2)
+                print(current)
+        return 1
+
+    def thread_complete(self):
+        print('Thread completed!')
+        self.timer.start()
+        # reset state variables as the thread completed!
+        self.automaticstatevar = False
 
     def update_plot_data(self):
         self.hour = self.hour[1:]
@@ -233,18 +260,51 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
 class Worker(QRunnable):
+    '''
+    Worker thread
+
+    Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
+
+    :param callback: The function callback to run on this worker thread. Supplied args and
+                     kwargs will be passed through to the runner.
+    :type callback: function
+    :param args: Arguments to pass to the callback function
+    :param kwargs: Keywords to pass to the callback function
+
+    '''
 
     def __init__(self, fn, *args, **kwargs):
         super(Worker, self).__init__()
         # Store constructor arguments (re-used for processing)
         self.fn = fn
-        self.arg = args
+        self.args = args
         self.kwargs = kwargs
+        self.signals = WorkerSignals()
 
     @pyqtSlot()
     def run(self):
-        print('Rampthread Started')
-        self.fn(*self.args, **self.kwarts)
+        '''
+        Initialise the runner function with passed args, kwargs.
+        '''
+
+        # Retrieve args/kwargs here; and fire processing using them
+        try:
+            self.fn
+        except:
+            traceback.print_exc()
+            exctype, value = sys.exc_info()[:2]
+            self.signals.error.emit((exctype, value, traceback.format_exc()))
+        # else:
+        #     self.signals.result.emit(result)  # Return the result of the processing
+        finally:
+            self.signals.finished.emit()  # Done
+
+
+class WorkerSignals(QObject):
+    finished = pyqtSignal()
+    error = pyqtSignal(tuple)
+    # result = pyqtSignal(int)
+
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
