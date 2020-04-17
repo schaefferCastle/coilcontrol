@@ -385,7 +385,14 @@
                     <item row="1" column="0">
                      <layout class="QHBoxLayout" name="horizontalLayout_17">
                       <item>
-                       <widget class="QDoubleSpinBox" name="doubleSpinBox_target"/>
+                       <widget class="QDoubleSpinBox" name="doubleSpinBox_target">
+                        <property name="decimals">
+                         <number>3</number>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.010000000000000</double>
+                        </property>
+                       </widget>
                       </item>
                       <item>
                        <widget class="QLabel" name="label_9">
@@ -417,7 +424,14 @@
                     <item row="2" column="0">
                      <layout class="QHBoxLayout" name="horizontalLayout_19">
                       <item>
-                       <widget class="QDoubleSpinBox" name="doubleSpinBox_autoincr"/>
+                       <widget class="QDoubleSpinBox" name="doubleSpinBox_autoincr">
+                        <property name="decimals">
+                         <number>3</number>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.010000000000000</double>
+                        </property>
+                       </widget>
                       </item>
                       <item>
                        <widget class="QLabel" name="label_8">
