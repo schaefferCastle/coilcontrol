@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1025</width>
-    <height>834</height>
+    <height>652</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -17,20 +17,30 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Curernt Control by A.tom</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../Desktop/Current-512.png</normaloff>../../Desktop/Current-512.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QWidget" name="widget" native="true">
       <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
+       <item alignment="Qt::AlignTop">
         <widget class="QWidget" name="widget_2" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <widget class="QGroupBox" name="groupBox">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -41,148 +51,386 @@
             <layout class="QGridLayout" name="gridLayout_2">
              <item row="0" column="0">
               <widget class="QLabel" name="label">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>Resource Name</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="lineEdit_resource">
-               <property name="text">
-                <string>TCPIP0::169.254.70.222::9221::SOCKET</string>
-               </property>
-              </widget>
-             </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="label_deviceName">
-               <property name="text">
-                <string>&lt;connected to&gt;</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
               <widget class="QCheckBox" name="checkBox_connect">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>Connect</string>
                </property>
               </widget>
              </item>
+             <item row="0" column="1" colspan="2">
+              <widget class="QLineEdit" name="lineEdit_resource">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>TCPIP0::169.254.70.222::9221::SOCKET</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" colspan="2">
+              <widget class="QLabel" name="label_deviceName">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>&lt;connected to&gt;</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox_2">
-            <property name="title">
-             <string>Device Status</string>
+           <widget class="QGroupBox" name="groupBox_lcd">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
-              <widget class="QGroupBox" name="groupBox_4">
-               <property name="title">
+            <property name="title">
+             <string>Device Status - Measured Values!</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_8">
+             <item row="1" column="5">
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Voltage</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Voltage</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1" rowspan="3">
+              <widget class="QLCDNumber" name="lcd1_volt">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="5" rowspan="3">
+              <widget class="QLCDNumber" name="lcd3_volt">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="smallDecimalPoint">
+                <bool>false</bool>
+               </property>
+               <property name="mode">
+                <enum>QLCDNumber::Dec</enum>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="4">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Current</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="4" rowspan="3">
+              <widget class="QLCDNumber" name="lcd3_curr">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" rowspan="3">
+              <widget class="QLCDNumber" name="lcd1_curr">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="3">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Voltage</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2" rowspan="3">
+              <widget class="QLCDNumber" name="lcd2_curr">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3" rowspan="3">
+              <widget class="QLCDNumber" name="lcd2_volt">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="segmentStyle">
+                <enum>QLCDNumber::Flat</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>Current</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Current</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_chan1">
+               <property name="text">
+                <string>CH1</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLabel" name="label_chan2">
+               <property name="text">
+                <string>CH2</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="4">
+              <widget class="QLabel" name="label_chan3">
+               <property name="text">
+                <string>CH3</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_channelcontrol">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="title">
+             <string>Channel Control</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_7">
+             <item row="0" column="2">
+              <widget class="QComboBox" name="comboBox_channel">
+               <property name="currentText">
                 <string>Channel 1</string>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_4">
-                <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_6">
-                  <item>
-                   <widget class="QLabel" name="label_2">
-                    <property name="text">
-                     <string>Voltage</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLCDNumber" name="lcdNumber"/>
-                  </item>
-                 </layout>
+               <item>
+                <property name="text">
+                 <string>Channel 1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Channel 2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Channel 3</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QCheckBox" name="checkBox_output">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Output ON/OFF</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" alignment="Qt::AlignTop">
+              <widget class="QGroupBox" name="groupBox_outputcontrol">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="title">
+                <string>Output Control</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_5">
+                <item row="1" column="0">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_setval">
+                  <property name="maximum">
+                   <double>35.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>0.010000000000000</double>
+                  </property>
+                 </widget>
                 </item>
-                <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_5">
-                  <item>
-                   <widget class="QLabel" name="label_3">
-                    <property name="text">
-                     <string>Current</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLCDNumber" name="lcdNumber_2"/>
-                  </item>
-                 </layout>
+                <item row="0" column="1">
+                 <widget class="QRadioButton" name="radio_cv1">
+                  <property name="text">
+                   <string>Voltage</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QPushButton" name="pushButton_setval">
+                  <property name="text">
+                   <string>Set</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QRadioButton" name="radio_cc1">
+                  <property name="text">
+                   <string>Current</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <spacer name="verticalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                </layout>
               </widget>
              </item>
-             <item>
-              <widget class="QGroupBox" name="groupBox_5">
-               <property name="title">
-                <string>Channel 2</string>
+             <item row="1" column="2" alignment="Qt::AlignTop">
+              <widget class="QGroupBox" name="groupBox_incrementcontrol">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_5">
-                <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_7">
-                  <item>
-                   <widget class="QLabel" name="label_4">
-                    <property name="text">
-                     <string>Voltage</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLCDNumber" name="lcd2_volt"/>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_8">
-                  <item>
-                   <widget class="QLabel" name="label_5">
-                    <property name="text">
-                     <string>Current</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLCDNumber" name="lcd2_curr"/>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupBox_6">
                <property name="title">
-                <string>Channel 3</string>
+                <string>Incremental Control</string>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_6">
-                <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_9">
-                  <item>
-                   <widget class="QLabel" name="label_6">
-                    <property name="text">
-                     <string>Voltage</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLCDNumber" name="lcdNumber_5"/>
-                  </item>
-                 </layout>
+               <layout class="QGridLayout" name="gridLayout_6">
+                <item row="2" column="0">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_setincr">
+                  <property name="maximum">
+                   <double>35.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>0.010000000000000</double>
+                  </property>
+                 </widget>
                 </item>
-                <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_10">
-                  <item>
-                   <widget class="QLabel" name="label_7">
-                    <property name="text">
-                     <string>Current</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLCDNumber" name="lcdNumber_6"/>
-                  </item>
-                 </layout>
+                <item row="2" column="1">
+                 <widget class="QPushButton" name="pushButton_setincr">
+                  <property name="text">
+                   <string>Set step</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QPushButton" name="pushButton_addincr">
+                  <property name="text">
+                   <string>increment (+)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QPushButton" name="pushButton_subincr">
+                  <property name="text">
+                   <string>decrement (-)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QRadioButton" name="radio_currinc">
+                  <property name="text">
+                   <string>Current</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QRadioButton" name="radio_voltinc">
+                  <property name="text">
+                   <string>Voltage</string>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
@@ -191,415 +439,275 @@
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox_deviceControl">
+           <widget class="QGroupBox" name="groupBox_automaticcurrentramp">
             <property name="enabled">
              <bool>true</bool>
             </property>
-            <property name="title">
-             <string>Device Control</string>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <property name="title">
+             <string>Automatic Current Ramp</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_13">
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_9">
-                 <item>
-                  <widget class="QCheckBox" name="checkBox_output">
-                   <property name="enabled">
-                    <bool>false</bool>
+              <widget class="QCheckBox" name="checkBox_automaticcontrol">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="text">
+                <string>Automatic Control</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QTabWidget" name="tabWidget_autocontrol">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
+               <widget class="QWidget" name="tab">
+                <attribute name="title">
+                 <string>Increment</string>
+                </attribute>
+                <layout class="QGridLayout" name="gridLayout">
+                 <item row="0" column="0" colspan="2">
+                  <widget class="QDoubleSpinBox" name="doubleSpinBox_target">
+                   <property name="decimals">
+                    <number>3</number>
                    </property>
-                   <property name="text">
-                    <string>Output ON/OFF</string>
+                   <property name="singleStep">
+                    <double>0.010000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>0.300000000000000</double>
                    </property>
                   </widget>
                  </item>
-                 <item>
-                  <widget class="QCheckBox" name="checkBox_automaticcontrol">
+                 <item row="0" column="2">
+                  <widget class="QLabel" name="label_9">
                    <property name="text">
-                    <string>Automatic Control</string>
+                    <string>Target (A)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0" colspan="2">
+                  <widget class="QDoubleSpinBox" name="doubleSpinBox_autoincr">
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.010000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>0.001000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QLabel" name="label_8">
+                   <property name="text">
+                    <string>Inc. (A)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QSpinBox" name="spinBox_dwell">
+                   <property name="maximum">
+                    <number>1000</number>
+                   </property>
+                   <property name="value">
+                    <number>200</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1" colspan="2">
+                  <widget class="QLabel" name="label_10">
+                   <property name="text">
+                    <string>Dwell (ms)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0" colspan="3">
+                  <widget class="QPushButton" name="pushButton_startramp">
+                   <property name="text">
+                    <string>Ramp</string>
                    </property>
                   </widget>
                  </item>
                 </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_8">
-                 <item>
-                  <widget class="QGroupBox" name="groupBox_7">
-                   <property name="title">
-                    <string>Channel 1</string>
+               </widget>
+               <widget class="QWidget" name="tab_2">
+                <attribute name="title">
+                 <string>Smooth  Edge Lin</string>
+                </attribute>
+                <layout class="QGridLayout" name="gridLayout_3">
+                 <item row="0" column="0">
+                  <widget class="QDoubleSpinBox" name="doubleSpinBox_smoothtarget">
+                   <property name="maximum">
+                    <double>5.000000000000000</double>
                    </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_13">
-                    <item>
-                     <layout class="QVBoxLayout" name="verticalLayout_14">
-                      <item>
-                       <layout class="QHBoxLayout" name="horizontalLayout_11">
-                        <item>
-                         <widget class="QRadioButton" name="radio_cc1">
-                          <property name="text">
-                           <string>Current</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QRadioButton" name="radio_cv1">
-                          <property name="text">
-                           <string>Voltage</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </item>
-                      <item>
-                       <layout class="QHBoxLayout" name="horizontalLayout_12">
-                        <item>
-                         <widget class="QDoubleSpinBox" name="doubleSpinBox_setval">
-                          <property name="maximum">
-                           <double>35.000000000000000</double>
-                          </property>
-                          <property name="singleStep">
-                           <double>0.010000000000000</double>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QPushButton" name="pushButton_setval">
-                          <property name="text">
-                           <string>Set</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
+                   <property name="singleStep">
+                    <double>0.010000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>1.000000000000000</double>
+                   </property>
                   </widget>
                  </item>
-                 <item>
-                  <widget class="QGroupBox" name="groupBox_8">
-                   <property name="title">
-                    <string>Increment</string>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="label_11">
+                   <property name="text">
+                    <string>Target Current (A)</string>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_15">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_16">
-                      <item>
-                       <widget class="QRadioButton" name="radio_currinc">
-                        <property name="text">
-                         <string>Current</string>
-                        </property>
-                        <property name="checked">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QRadioButton" name="radio_voltinc">
-                        <property name="text">
-                         <string>Voltage</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_14">
-                      <item>
-                       <widget class="QDoubleSpinBox" name="doubleSpinBox_setincr">
-                        <property name="maximum">
-                         <double>35.000000000000000</double>
-                        </property>
-                        <property name="singleStep">
-                         <double>0.010000000000000</double>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="pushButton_setincr">
-                        <property name="text">
-                         <string>Set</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_15">
-                      <item>
-                       <widget class="QPushButton" name="pushButton_subincr">
-                        <property name="text">
-                         <string>decrement (-)</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="pushButton_addincr">
-                        <property name="text">
-                         <string>increment (+)</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
                   </widget>
                  </item>
-                 <item>
-                  <widget class="QGroupBox" name="groupBox_9">
-                   <property name="title">
-                    <string>Automatic Current Ramp</string>
+                 <item row="1" column="0">
+                  <widget class="QDoubleSpinBox" name="doubleSpinBox_smoothrate">
+                   <property name="decimals">
+                    <number>3</number>
                    </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_20">
-                    <item>
-                     <widget class="QTabWidget" name="tabWidget">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="currentIndex">
-                       <number>2</number>
-                      </property>
-                      <widget class="QWidget" name="tab">
-                       <attribute name="title">
-                        <string>Increment</string>
-                       </attribute>
-                       <layout class="QGridLayout" name="gridLayout">
-                        <item row="0" column="0" colspan="2">
-                         <widget class="QDoubleSpinBox" name="doubleSpinBox_target">
-                          <property name="decimals">
-                           <number>3</number>
-                          </property>
-                          <property name="singleStep">
-                           <double>0.010000000000000</double>
-                          </property>
-                          <property name="value">
-                           <double>0.300000000000000</double>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="2">
-                         <widget class="QLabel" name="label_9">
-                          <property name="text">
-                           <string>Target (A)</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="1" column="0" colspan="2">
-                         <widget class="QDoubleSpinBox" name="doubleSpinBox_autoincr">
-                          <property name="decimals">
-                           <number>3</number>
-                          </property>
-                          <property name="singleStep">
-                           <double>0.010000000000000</double>
-                          </property>
-                          <property name="value">
-                           <double>0.001000000000000</double>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="1" column="2">
-                         <widget class="QLabel" name="label_8">
-                          <property name="text">
-                           <string>Inc. (A)</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="2" column="0">
-                         <widget class="QSpinBox" name="spinBox_dwell">
-                          <property name="maximum">
-                           <number>1000</number>
-                          </property>
-                          <property name="value">
-                           <number>200</number>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="2" column="1" colspan="2">
-                         <widget class="QLabel" name="label_10">
-                          <property name="text">
-                           <string>Dwell (ms)</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="3" column="0" colspan="3">
-                         <widget class="QPushButton" name="pushButton_startramp">
-                          <property name="text">
-                           <string>Ramp</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
-                      <widget class="QWidget" name="tab_2">
-                       <attribute name="title">
-                        <string>Smooth  Edge Lin</string>
-                       </attribute>
-                       <layout class="QGridLayout" name="gridLayout_3">
-                        <item row="0" column="0">
-                         <widget class="QDoubleSpinBox" name="doubleSpinBox_smoothtarget">
-                          <property name="maximum">
-                           <double>5.000000000000000</double>
-                          </property>
-                          <property name="singleStep">
-                           <double>0.010000000000000</double>
-                          </property>
-                          <property name="value">
-                           <double>1.000000000000000</double>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="1">
-                         <widget class="QLabel" name="label_11">
-                          <property name="text">
-                           <string>Target Current (A)</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="1" column="0">
-                         <widget class="QDoubleSpinBox" name="doubleSpinBox_smoothrate">
-                          <property name="decimals">
-                           <number>3</number>
-                          </property>
-                          <property name="minimum">
-                           <double>0.001000000000000</double>
-                          </property>
-                          <property name="maximum">
-                           <double>10.000000000000000</double>
-                          </property>
-                          <property name="value">
-                           <double>1.000000000000000</double>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="1" column="1">
-                         <widget class="QLabel" name="label_12">
-                          <property name="text">
-                           <string>Rate (A/min)</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="2" column="0">
-                         <widget class="QSpinBox" name="spinBox_smoothdwell">
-                          <property name="minimum">
-                           <number>1</number>
-                          </property>
-                          <property name="maximum">
-                           <number>1000</number>
-                          </property>
-                          <property name="value">
-                           <number>100</number>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="2" column="1">
-                         <widget class="QLabel" name="label_13">
-                          <property name="text">
-                           <string>Dwell (ms)</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="3" column="0">
-                         <widget class="QPushButton" name="pushButton_smoothrampstart">
-                          <property name="text">
-                           <string>Start Ramp</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="3" column="1">
-                         <widget class="QPushButton" name="pushButton_showtrajectorie">
-                          <property name="text">
-                           <string>Preview Trajectorie</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
-                      <widget class="QWidget" name="tab_3">
-                       <attribute name="title">
-                        <string>Lin</string>
-                       </attribute>
-                       <layout class="QGridLayout" name="gridLayout_4">
-                        <item row="0" column="0" colspan="2">
-                         <widget class="QDoubleSpinBox" name="doubleSpinBox_lintarget">
-                          <property name="decimals">
-                           <number>3</number>
-                          </property>
-                          <property name="value">
-                           <double>1.000000000000000</double>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="0" column="2">
-                         <widget class="QLabel" name="label_14">
-                          <property name="text">
-                           <string>Target (A)</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="1" column="0" colspan="2">
-                         <widget class="QDoubleSpinBox" name="doubleSpinBox_linrate">
-                          <property name="decimals">
-                           <number>3</number>
-                          </property>
-                          <property name="value">
-                           <double>1.000000000000000</double>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="1" column="2">
-                         <widget class="QLabel" name="label_15">
-                          <property name="text">
-                           <string>Rate (A/min)</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="2" column="0">
-                         <widget class="QSpinBox" name="spinBox_lindwell">
-                          <property name="minimum">
-                           <number>1</number>
-                          </property>
-                          <property name="maximum">
-                           <number>1000</number>
-                          </property>
-                          <property name="value">
-                           <number>10</number>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="2" column="2">
-                         <widget class="QLabel" name="label_16">
-                          <property name="text">
-                           <string>Dwell (ms)</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="4" column="0">
-                         <widget class="QPushButton" name="pushButton_linrampstart">
-                          <property name="text">
-                           <string>Start Rmp</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item row="4" column="2">
-                         <widget class="QPushButton" name="pushButton_linrampshowtrajectory">
-                          <property name="text">
-                           <string>Preview Trajectory</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
-                     </widget>
-                    </item>
-                   </layout>
+                   <property name="minimum">
+                    <double>0.001000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>100.000000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>1.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLabel" name="label_12">
+                   <property name="text">
+                    <string>Rate (A/min)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QSpinBox" name="spinBox_smoothdwell">
+                   <property name="minimum">
+                    <number>1</number>
+                   </property>
+                   <property name="maximum">
+                    <number>1000</number>
+                   </property>
+                   <property name="value">
+                    <number>100</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QLabel" name="label_13">
+                   <property name="text">
+                    <string>Dwell (ms)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QPushButton" name="pushButton_smoothrampstart">
+                   <property name="text">
+                    <string>Start Ramp</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="QPushButton" name="pushButton_showtrajectorie">
+                   <property name="text">
+                    <string>Preview Trajectory</string>
+                   </property>
                   </widget>
                  </item>
                 </layout>
-               </item>
-              </layout>
+               </widget>
+               <widget class="QWidget" name="tab_3">
+                <attribute name="title">
+                 <string>Lin</string>
+                </attribute>
+                <layout class="QGridLayout" name="gridLayout_4">
+                 <item row="0" column="2">
+                  <widget class="QLabel" name="label_14">
+                   <property name="text">
+                    <string>Target Current (A)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QLabel" name="label_15">
+                   <property name="text">
+                    <string>Rate (A/min)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QSpinBox" name="spinBox_lindwell">
+                   <property name="minimum">
+                    <number>1</number>
+                   </property>
+                   <property name="maximum">
+                    <number>1000</number>
+                   </property>
+                   <property name="value">
+                    <number>10</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="2">
+                  <widget class="QLabel" name="label_16">
+                   <property name="text">
+                    <string>Dwell (ms)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="0">
+                  <widget class="QPushButton" name="pushButton_linrampstart">
+                   <property name="text">
+                    <string>Start Ramp</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="2">
+                  <widget class="QPushButton" name="pushButton_linrampshowtrajectory">
+                   <property name="text">
+                    <string>Preview Trajectory</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QDoubleSpinBox" name="doubleSpinBox_lintarget">
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="value">
+                    <double>1.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QDoubleSpinBox" name="doubleSpinBox_linrate">
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="value">
+                    <double>1.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -609,15 +717,32 @@
        </item>
        <item>
         <widget class="QWidget" name="widget_3" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="PlotWidget" name="plot_1" native="true"/>
+           <widget class="PlotWidget" name="plot_1" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>0</height>
+             </size>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="PlotWidget" name="plot_2" native="true"/>
           </item>
           <item>
-           <widget class="PlotWidget" name="plot_3" native="true"/>
+           <widget class="PlotWidget" name="plot_3" native="true">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
