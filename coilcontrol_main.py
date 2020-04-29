@@ -24,15 +24,14 @@
 
 import sys
 from os import environ
-from random import randint
 import time
 import threading
 import numpy as np
-import matplotlib.pyplot as plt
 import pyqtgraph as pg
 from PyQt5 import QtWidgets, QtCore
 from dcps import AimTTiPLP
 from coilGUIpy import Ui_MainWindow
+
 
 # TODO: Progress bar for ramp?!
 
@@ -62,7 +61,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # PLOT Window 1
         self.plot_1.setBackground('w')
-        pen = pg.mkPen(color=(0, 0.4470*255, 0.7410*255), width=3, syle=pg.QtCore.Qt.DashLine)
+        pen = pg.mkPen(color=(0, 0.4470 * 255, 0.7410 * 255), width=3, syle=pg.QtCore.Qt.DashLine)
         self.plot_1.setTitle("<span style=\"color:black;font-size:15px\">Voltage</span>")
         self.plot_1.setLabel('left', 'Voltage (V)', color='grey')
         self.plot_1.setLabel('bottom', 'Time (a.u.)', color='grey')
@@ -70,10 +69,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.plot_1.showGrid(x=True, y=True)
         self.my_line_ref = self.plot(self.hour, self.temperature, name='Channel', pen=pen)
 
-
         # PlOT in Window 2
         self.plot_2.setBackground('w')
-        pen = pg.mkPen(color=(0.8500*255, 0.3250*255, 0.0980*255), width=3, syle=pg.QtCore.Qt.DashLine)
+        pen = pg.mkPen(color=(0.8500 * 255, 0.3250 * 255, 0.0980 * 255), width=3, syle=pg.QtCore.Qt.DashLine)
         self.plot_2.setTitle("<span style=\"color:black;font-size:15px\">Current</span>")
         self.plot_2.setLabel('left', 'Current (A)', color='grey')
         self.plot_2.setLabel('bottom', 'Time (a.u.)', color='grey')
@@ -84,7 +82,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # Plot in Window 3 - Trajectory
         self.plot_3.setBackground('w')
-        pen = pg.mkPen(color=(0.8500*255, 0.3250*255, 0.0980*255), width=3, syle=pg.QtCore.Qt.DashLine)
+        pen = pg.mkPen(color=(0.8500 * 255, 0.3250 * 255, 0.0980 * 255), width=3, syle=pg.QtCore.Qt.DashLine)
         self.plot_3.setTitle("<span style=\"color:black;font-size:15px\">Current Trajectory</span>")
         self.plot_3.setLabel('left', 'Current (A)', color='grey')
         self.plot_3.setLabel('bottom', 'Time (s)', color='grey')
@@ -453,25 +451,26 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         return dwell, yy, timeplot
 
     def updatelcd(self):
-            for i in range(3):
-                curr = self.supply.measureCurrent(channel=(i+1))
-                volt = self.supply.measureVoltage(channel=(i+1))
-                self.outputstats[i] = self.supply.isOutputOn(channel=(i+1))
-                if i == 0:
-                    self.lcd1_curr.display(curr)
-                    self.lcd1_volt.display(volt)
-                    status = "CH1 - {}".format(self.outputstats[0])
-                    self.label_chan1.setText(status)
-                if i == 1:
-                    self.lcd2_curr.display(curr)
-                    self.lcd2_volt.display(volt)
-                    status = "CH2 - {}".format(self.outputstats[1])
-                    self.label_chan2.setText(status)
-                if i == 2:
-                    self.lcd3_curr.display(curr)
-                    self.lcd3_volt.display(curr)
-                    status = "CH3 - {}".format(self.outputstats[2])
-                    self.label_chan3.setText(status)
+        for i in range(3):
+            curr = self.supply.measureCurrent(channel=(i + 1))
+            volt = self.supply.measureVoltage(channel=(i + 1))
+            self.outputstats[i] = self.supply.isOutputOn(channel=(i + 1))
+            if i == 0:
+                self.lcd1_curr.display(curr)
+                self.lcd1_volt.display(volt)
+                status = "CH1 - {}".format(self.outputstats[0])
+                self.label_chan1.setText(status)
+            if i == 1:
+                self.lcd2_curr.display(curr)
+                self.lcd2_volt.display(volt)
+                status = "CH2 - {}".format(self.outputstats[1])
+                self.label_chan2.setText(status)
+            if i == 2:
+                self.lcd3_curr.display(curr)
+                self.lcd3_volt.display(curr)
+                status = "CH3 - {}".format(self.outputstats[2])
+                self.label_chan3.setText(status)
+
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
