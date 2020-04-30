@@ -36,10 +36,6 @@ from commserver import Server
 
 
 # TODO: Progress bar for ramp?!
-class Dummy:
-    def __init__(self):
-        self.objectName = None
-
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, obj=None, **kwargs):
