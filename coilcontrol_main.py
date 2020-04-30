@@ -29,17 +29,27 @@ import threading
 import numpy as np
 import pyqtgraph as pg
 from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtCore import pyqtSignal
 from dcps import AimTTiPLP
 from coilGUIpy import Ui_MainWindow
+from commserver import Server
 
 
 # TODO: Progress bar for ramp?!
+class Dummy:
+    def __init__(self):
+        self.objectName = None
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, obj=None, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
+
+        # Create Server
+        self.server = Server()
+        self.server.sessionOpened()
+        self.server.signals.msg.connect(self.serverevents)
 
         # State Vars
         self.outputvar = False
@@ -161,17 +171,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             print('Starting the ramp!')
             if not self.rampinprogress:
                 self.rampinprogress = True
-                # worker = Worker(self.rampcurrent(delta=self.doubleSpinBox_autoincr.value(),
-                #                                  target=self.doubleSpinBox_target.value(),
-                #                                  waittime=self.spinBox_dwell.value()/1000, statvar=self.autostatvar))
-                # worker.signals.finished.connect(self.thread_complete)
-                # self.timer.stop()
                 t = threading.Thread(target=self.rampcurrent, args=(self.doubleSpinBox_autoincr.value(),
                                                                     self.doubleSpinBox_target.value(),
                                                                     self.spinBox_dwell.value() / 1000,
                                                                     self.autostatvar))
                 t.start()
-                # self.threadpool.start(worker)
             else:
                 print('You can not start a second ramp thread!')
         if b.objectName() == 'pushButton_showtrajectorie':
@@ -232,6 +236,58 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     self.checkBox_output.setChecked(True)
                 else:
                     self.checkBox_output.setChecked(False)
+
+    def serverevents(self, s):
+        value_1 = []
+        value_2 = []
+        print('main window catch')
+        print(s)
+        # decode message by scheme
+        if s.find(':') != -1:
+            s, value_1 = s.split(':')
+            # data,value_1,value_2=data.split(',')
+            if value_1.find(',') != -1:
+                value_1, value_2 = value_1.split(',')
+
+        if s:
+            self.callrespond(s, value_1, value_2)
+
+    def callrespond(self, s, value_1, value_2):
+
+        if s == 'get_volt':
+            voltvals = [self.lcd1_volt.value(), self.lcd2_volt.value(), self.lcd3_volt.value()]
+            value_1 = int(value_1)
+            reply = str(voltvals[value_1 - 1])
+            self.server.sendeasy(reply)
+
+        elif s == 'get_curr':
+            currvals = [self.lcd1_curr.value(), self.lcd2_curr.value(), self.lcd3_curr.value()]
+            value_1 = int(value_1)
+            reply = str(currvals[value_1 - 1])
+            self.server.sendeasy(reply)
+
+        elif s == 'set_channel':
+            value_1 = int(value_1)
+            self.comboBox_channel.setCurrentIndex(value_1 - 1)
+            self.clickevents(self.comboBox_channel)
+            s = 'Done!'
+            self.server.sendeasy(s)
+
+        elif s == 'set_output':
+            value_1 = int(value_1)
+            value_2 = int(value_2)
+            if value_2 == 1:
+                self.supply.outputOn(channel=value_1)
+                self.server.sendeasy('Done! ON')
+            elif value_2 == 0:
+                self.supply.outputOff(channel=value_1)
+                self.server.sendeasy('Done! OFF')
+            else:
+                print('wrong command')
+
+        else:
+            s = 'Wrong-Command!'
+            self.server.sendeasy(s)
 
     def chkstate(self, b):
         if b.objectName() == 'checkBox_output':
