@@ -32,7 +32,7 @@ class Server(QDialog):
         # read incomming data
         instr = self.clientConnection.readAll()
 
-        # rais signal with message
+        # raise signal with message
         tomaingui = str(instr, encoding='utf-8')
         self.signals.msg.emit(tomaingui)
 
