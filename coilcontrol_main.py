@@ -279,11 +279,43 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             if value_2 == 1:
                 self.supply.outputOn(channel=value_1)
                 self.server.sendeasy('Done! ON')
+                if self.channel == value_1:
+                    self.checkBox_output.setChecked(True)
             elif value_2 == 0:
                 self.supply.outputOff(channel=value_1)
                 self.server.sendeasy('Done! OFF')
+                if self.channel == value_1:
+                    self.checkBox_output.setChecked(False)
             else:
                 print('wrong command')
+
+        elif s == 'set_current':
+            value_1 = int(value_1)
+            value_2 = float(value_2)
+            self.supply.setCurrent(value_2,channel=value_1)
+            self.server.sendeasy('Done!')
+
+        elif s == 'set_smoothtarget':
+            value_1 = float(value_1)
+            self.doubleSpinBox_smoothtarget.setValue(value_1)
+            self.server.sendeasy('Done!')
+
+        elif s == 'set_smoothrate':
+            value_1 = float(value_1)
+            self.doubleSpinBox_smoothrate.setValue((value_1))
+            self.server.sendeasy('Done!')
+
+        elif s == 'set_smoothdwell':
+            value_1 = int(value_1)
+            print(value_1)
+            self.spinBox_smoothdwell.setValue(value_1)
+            self.server.sendeasy('Done!')
+
+        elif s == 'start_smoothramp':
+            print('Starting ramp (remote!)')
+            self.checkBox_automaticcontrol.setChecked(True)
+            self.clickevents(self.pushButton_smoothrampstart)
+            self.server.sendeasy('Done!')
 
         else:
             s = 'Wrong-Command!'
